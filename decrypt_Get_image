@@ -1,0 +1,17 @@
+def decrypt_image(encrypted_img_link, secret_key, iv):
+    '''
+    Function will take input encrypted_img_link, secret_key(in bytes), iv(vector)(in bytes) to decrypt using AES(GCM) algo.
+    Image has been encrypted via Advanced Encryption Standard (AES) algorithm in Galois Counter Mode (GCM),
+    known as AES-GCM is used to encrypt the base64 encoded image link. 
+    '''
+    from Crypto.Cipher import AES
+    import base64
+    img_link_bytes = ((encrypted_img_link))
+    secret_key_bytes =((secret_key))
+    iv_bytes = (iv)
+    cipher = AES.new(secret_key_bytes, AES.MODE_GCM, nonce=iv_bytes) #cipher_object, Algo:- ES/GCM
+    decoded_img_link = base64.b64decode(img_link_bytes) #base_64 decoded img
+    decrypted_link = cipher.decrypt(decoded_img_link) #decrypting img link using secret key and intialization vector
+    original_img_link = base64.b64decode(decrypted_link)
+
+    return (original_img_link)
